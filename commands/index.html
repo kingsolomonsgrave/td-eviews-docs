@@ -1,0 +1,947 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../glossary/">
+      
+      
+        <link rel="next" href="../tables/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Commands - TD EViews Training</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#commands-and-programming-reference-chapter-1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TD EViews Training" class="md-header__button md-logo" aria-label="TD EViews Training" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TD EViews Training
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TD EViews Training" class="md-nav__button md-logo" aria-label="TD EViews Training" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TD EViews Training
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Commands
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Commands
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#every-command-in-eviews-falls-into-one-of-four-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Every command in Eviews falls into one of four categories:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Capture:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object declaration:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-matrices-and-coefs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Declaring matrices and coefs:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commands:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#freeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      Freeze:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Freeze:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-examples-of-object-commands-that-can-be-used-on-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some examples of object commands that can be used on series:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-commands-these-create-new-unnamed-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interactive commands: these create new unnamed objects:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aux-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aux commands:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workfiles-and-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workfiles and Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Objects:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Objects:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copying" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copying:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fetch:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Graphs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Programming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modeling & Forecasting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips & Pitfalls
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#every-command-in-eviews-falls-into-one-of-four-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Every command in Eviews falls into one of four categories:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Capture:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object declaration:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-matrices-and-coefs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Declaring matrices and coefs:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commands:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#freeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      Freeze:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Freeze:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-examples-of-object-commands-that-can-be-used-on-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some examples of object commands that can be used on series:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-commands-these-create-new-unnamed-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interactive commands: these create new unnamed objects:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aux-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aux commands:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workfiles-and-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workfiles and Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Objects:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Objects:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copying" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copying:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fetch:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="commands-and-programming-reference-chapter-1">Commands and Programming Reference Chapter 1</h1>
+<h3 id="every-command-in-eviews-falls-into-one-of-four-categories">Every command in Eviews falls into one of four categories:</h3>
+<ul>
+<li>object declaration/assignment, </li>
+<li>object view/procedure view, </li>
+<li>interactive commands (these create unnamed objects), </li>
+<li>auxiliary commands (these are commands that do not specifically pertain to objects, eg 'store').</li>
+</ul>
+<h3 id="command-capture">Command Capture:</h3>
+<p>when you point and click this window captures the commands being used. To activate: display command capture window by clicking on <strong>Window &gt; Display Command Capture Window</strong> from the main EViews menu.</p>
+<p><img alt="Command Window" src="../img/image1.png" />
+<em>Figure 1.1: How to display the Command Window</em></p>
+<p>To echo any commands in this window, go to <strong>Options &gt; General Options</strong> and click on the Command settings.</p>
+<p><img alt="Setting up the Command Window" src="../img/image2.png" /></p>
+<p><em>Figure 1.2: Setting up the Command Window to Echo Commands</em></p>
+<p>You can then save the contents by copy and paste or right clicking and saving directly. Some EVews commands are not capture enabled <em>(because of course there are exceptions, EViews loves exceptions to their rules!)</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The insertion cursor can be at any place in the line of code you wish to execute, once the user hits enter that line will execute (even in the middle of a line of code).</p>
+</div>
+<p>Scroll up and down previous commands using CRTL + UP  or CRTL + DOWN respectively.</p>
+<p><img alt="Image Placeholder 9" src="../img/image9.png" /></p>
+<p>The Command Explorer window (appearing on the far left of the screen) allows for a way to display context specific documentation while working in Eviews.</p>
+<p><img alt="Image Placeholder 10" src="../img/image3.png" />
+Once the window is opened, clicking on the name of an object type will open a documentation page for that object in a browser window.</p>
+<p>For example, if a user wanted to know what the command <code>@recode</code> does they can go to the command explorer and this will take them to the Eviews website:</p>
+<p><img alt="Image Placeholder 12" src="../img/image4.png" /></p>
+<p><img alt="Image Placeholder 13" src="../img/image5.png" /></p>
+<p>Note the wildcard "*" can be used for search for commands.</p>
+<p>If a workfile is open you can use CRTL + SPACE to autocomplete commands and for objects (the manual claims this but it can be buggy).</p>
+<p>Many commands can be linked together and saved as a program. <strong>File &gt; New &gt; Program</strong> will start a new program.</p>
+<h2 id="object-declaration">Object declaration:</h2>
+<blockquote>
+<blockquote>
+<p>Object_type(options) object_name, below are all the possible types of object in Eviews.</p>
+</blockquote>
+</blockquote>
+<p><img alt="Image Placeholder 20" src="../img/image6.png" /></p>
+<p>The various object types :</p>
+<p>To create an object we start the code with the object type. </p>
+<p>For example, to create a series called lgdp we would use:</p>
+<p><code>series lgdp</code></p>
+<p>To create an equation called eq1 one would use:</p>
+<p><code>equation eq1</code></p>
+<h2 id="declaring-matrices-and-coefs">Declaring matrices and coefs:</h2>
+<p><code>matrix(m, n) x</code>  creates an empty m by n matrix named <em>x</em></p>
+<p><code>coef(10) results</code>  creates a 10 element coefficient vector named <em>results</em></p>
+<p>Object assignment: "="  assigns a value or values to an object.</p>
+<p>For example: </p>
+<p><code>series new_series = 0</code> creates a series (whose length is determined by the sample size using the <code>smpl</code> function) which contains zero as every entry. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to tell Eviews which data to work on use the <code>smpl</code> function like so: <code>smpl 1990q1 2025q1</code>. Users can select the entire sample using <code>smpl @all</code> and can select from the beginning or to the end useing <code>@first</code> and <code>@last</code> respectively.</p>
+</div>
+<p>For example, to select from the second quarter of 2005 to the end of the data series type</p>
+<p><code>smpl 2005q2 @last</code></p>
+<p>When ready to work with the entire data set remember to use</p>
+<p><code>smple @all</code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have the sample set (using the <code>smpl</code> command) to only a part of the data set then any commands given will apply only to that sample of the dataset! Always use <code>smpl @all</code> when finished altering a subsample of the dataset. </p>
+</div>
+<h2 id="object-commands">Object Commands</h2>
+<p>These can be used to modify existing objects, for example
+<code>eq1.ls log(cons) c x1 x2</code>  this estimates an equation by OLS (LS  for 'least squares")</p>
+<p>To add to systems or groups use the following (similar to methods in Python OOP)</p>
+<p><code>sys1.append y = c(1) c(2)*x</code>  this adds the equation to the system called sys1
+<code>group01.add gdp cons inc g x</code> this adds the variables to the left of .add to the group named goup01</p>
+<p>We can change the values in a series in a single command by specifying the sample period
+<code>smpl @first 1979</code>
+<code>eries dummy = 1</code>  this will make all values from the first obs to the obs at 1979 to equal 1</p>
+<p><img alt="Image Placeholder 31" src="../img/image7.png" /></p>
+<h2 id="commands">Commands:</h2>
+<p>show displays, do executes procedures, if the object window is already open then show is the same as do, freeze creates a table or graph of the object view and print prints the object view window.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The show action is assumed for view commands and do is assumed for procedures. </p>
+</div>
+<p>For example <code>gdp.line</code> is the same as
+<code>show gpd.line</code> (which creates a line graph of the variable named gdp)</p>
+<p>Another example:</p>
+<p><code>eq1.ls cons c gdp</code> is the same as
+<code>do eq1.ls cons gdp</code></p>
+<p>The <code>print</code> command can be used to print and the <code>print(l)</code></p>
+<h2 id="freeze">Freeze:</h2>
+<p><img alt="Image Placeholder 36" src="img/image36.png" />
+<code>freeze gdp.line</code>creates and untitled graph or table from a view specification, but
+<code>freeze(figure1) gdp.bar</code> creates a bar graph named <em>figure 1</em>.</p>
+<h3 id="some-examples-of-object-commands-that-can-be-used-on-series">Some examples of object commands that can be used on series:</h3>
+<p><code>Sheet</code>, <code>hist</code>, <code>freq,bar</code>,  <code>correl</code>, <code>lrvar</code>, <code>uroot</code>, <code>stats</code>, <code>label(r)</code>   shows a spreadsheet, histogram, bar graph, correlation, unit root test, or labels the series respectively.</p>
+<p>Every object has native <em>Data Members</em> which can be retrieved using the following after "." and the variable name </p>
+<p><img alt="Image Placeholder 31" src="../img/image8.png" />
+<img alt="Image Placeholder 31" src="../img/image9.png" /></p>
+<p>Groups also have <code>@count</code> which returns the number of objects in the group.</p>
+<p>Equations have members like <code>@r</code> (r -squared) or <code>@f</code>(f-statistic).</p>
+<h2 id="interactive-commands-these-create-new-unnamed-objects">Interactive commands: these create new <strong>unnamed</strong> objects:</h2>
+<p>For example:</p>
+<p><code>ls y c x1 x2</code>   will run OLS  y = c  + beta_1<em>x1 + beta_2</em>x2 and create an untitled equation object to hold the results</p>
+<p>Example 2: </p>
+<p><code>scatt x y</code>  creates a group and a scatterplot (unnamed).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Unnamed object scannot be referenced by name, saved to disk or deleted <strong>EXCEPT</strong> though the graphical Windows interface! Using named objects is typically preferred if using code to control Eviews.</p>
+</div>
+<p>In contrast to the above we can do the following</p>
+<p><code>equation eq1.ls y cy x1 x2</code> and now the equation is named eq1</p>
+<p>We can also do:</p>
+<p><code>group mygroup x y</code>  now the group is named <strong>mygroup</strong></p>
+<p><code>mygroup.scat</code></p>
+<h2 id="aux-commands">Aux commands:</h2>
+<p>Aux commands are commands such as "store"  (to save a file) that do not pertain to a particular object . <strong>Syntax: command(option_list) argument_list</strong></p>
+<h2 id="workfiles-and-databases">Workfiles and Databases</h2>
+<p><code>wfcreate</code>  this creates a new workfile (followed by the name of the new workfile and an option for frequency of the data)</p>
+<p><img alt="Image Placeholder 50" src="../img/image10.png" /></p>
+<p>For example:</p>
+<p><code>wfcreate macro1 u 1 1000</code>  creates a workfile called <em>macro1</em> which is <em>undated/unstructured</em> and contains 1000 obs</p>
+<p>while</p>
+<p><code>wfcreate macro1 q 1965q1 2025q4</code>  creates a <code>quarterly</code> workfile from the first quarter of 1965 to the last quarter of 2025.</p>
+<p>The letters "wf" precede workfile commands, thus in order to open a workfile we use <code>wfopen</code>, to save use <code>wfsave</code> (eg: <code>wfsave a:\my_work_file</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To close a workfile we use <code>close my_work_file</code> (not <em>wfclose</em> as one might guess)</p>
+</div>
+<h2 id="databases">Databases</h2>
+<p>Databases are referred to as 'db' so <code>dpcreate</code> creates a database while <code>dbopen</code>opens a database etc (TODO: Add database commands)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>db</code> ttself is a command.  <code>db C:\evdata\usdb</code> opens a data base called <em>usdb</em> if it already exists <strong>and creates one if it does not exist</strong>.</p>
+</div>
+<p>Other useful commands: <code>dbrename</code>, <code>dbdelete</code>, <code>dbcopy</code></p>
+<h2 id="managing-objects">Managing Objects:</h2>
+<h3 id="copying">Copying:</h3>
+<p><code>copy source_name destination_name</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>source_name</code> and <code>destination_name</code> can contain a full workfile address starting with a page name and then a variable name. EG <code>copy page1/var1 page2/var2</code> would copy var1 on page1 to var2 on page2.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Eveiws supports wildcards: * for multiple characters and ? for single characters. The patterns must match (see below).</p>
+</div>
+<p><img alt="Image Placeholder 31" src="../img/image11.png" /></p>
+<p><img alt="Image Placeholder 31" src="../img/image12.png" /></p>
+<p><code>rename source_name destination_name</code></p>
+<p><code>delete name_pattern</code>  deletes the objects with this PATTERN (can use wildcards here)</p>
+<h3 id="fetch">Fetch:</h3>
+<p><code>fetch(option_list) object1 object2</code> (however many objects)  to specify a particular database use the "d=" option or the "::" extension (same for the store command).</p>
+<p>TODO : add more detail on how to access databases.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>
