@@ -552,18 +552,21 @@
 
 
 <h1 id="commonly-used-native-eviews-functions-and-their-definitions">Commonly used Native Eviews Functions and their Definitions</h1>
+<p><code>@count(x)</code> returns the number of <strong>all</strong> observations (including missing values)</p>
+<p><code>d(x)</code> first difference.</p>
+<p><code>d(x,n)</code> n-th order difference.</p>
+<p><code>@demean(s[,smpl])</code> demean. Returns a copy of series s translated to have a mean of zero.</p>
+<p><code>dlog(x)</code> first difference in logs.</p>
+<p><code>dlog(x, n)</code> nth difference in logs.</p>
 <p><code>@iff(s,x,y)</code> recode by condition returns if condition is true; otherwise returns . Note this is the same as
 @recode.</p>
 <p><code>@isna(x)</code> equal to NA. Returns 1 if x is equal to NA and 0 otherwise.</p>
-<p><code>d(x)</code> first difference.</p>
-<p><code>d(x,n)</code> n-th order difference.</p>
-<p><code>dlog(x)</code> first difference in logs.</p>
-<p><code>dlog(x, n)</code> nth difference in logs.</p>
-<p><code>@demean(s[,smpl])</code> demean. Returns a copy of series s translated to have a mean of zero.</p>
-<p><code>@pch(x)</code>one-period percentage change (in decimal)
-<code>@pc(x)</code> one-period percentage change (in percent) - equals <code>@pch(x)*100</code></p>
-<p><code>@pca(x)</code> one-period percentage change—annualized (in percent) equals <code>@pcha(x)*100</code></p>
-<p><code>@recode(s,x,y)</code> recode by condition. If s is true then it returns x, and s is false it returns y </p>
+<p><code>@obs(x[,s])</code> number of observations. Returns the number of <em>non-missing</em> observations for X in the current sample.</p>
+<p><code>@pch(x)</code>one-period percentage change (in decimal).</p>
+<p><code>@pc(x)</code> one-period percentage change (in percent) - equals <code>@pch(x)*100</code>.</p>
+<p><code>@pca(x)</code> one-period percentage change—annualized (in percent) equals <code>@pcha(x)*100</code>.</p>
+<p><code>@recode(s,x,y)</code> recode by condition. If s is true then it returns x, and s is false it returns y.</p>
+<p><code>@ytd(s[, smpl])</code> YTD of series s. Provides the cumulative sum of a series within the year. Optionally, a sample may be provided to limit the observations included in the summation.</p>
 
 
 
