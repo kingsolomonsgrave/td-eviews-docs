@@ -567,6 +567,25 @@
 <p><code>@pca(x)</code> one-period percentage change—annualized (in percent) equals <code>@pcha(x)*100</code>.</p>
 <p><code>@recode(s,x,y)</code> recode by condition. If s is true then it returns x, and s is false it returns y.</p>
 <p><code>@ytd(s[, smpl])</code> YTD of series s. Provides the cumulative sum of a series within the year. Optionally, a sample may be provided to limit the observations included in the summation.</p>
+<hr />
+<p><code>importtbl</code> imports a table, used to import Excel files for example. </p>
+<p>Example:</p>
+<pre><code>string tablename = "Mnemonictable"
+importtbl(name= {tablename} O:\tdecon\Risk_taem\QEF_Data\zzz_baseline_table.xlsx
+range = Name_of_Sheet na="#NA"
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For range we would use [worksheet!][topleft_cell:bottom_right_cell] but we can also use the sheet name to import the entire sheet</p>
+<ul>
+<li>
+<p>Other options: </p>
+<p>-<code>name</code> specifies the name of the created table object</p>
+<p>-<code>display</code> specifies a display name for the created table object</p>
+<p>-<code>page</code> optional name for the page into which the table should be created</p>
+</li>
+</ul>
+</div>
 
 
 
