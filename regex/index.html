@@ -626,6 +626,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#1-digits-and-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) Digits and Numbers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-words-and-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) Words and Text
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-whitespace-and-separators" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) Whitespace and Separators
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-anchors-startend" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Anchors (Start/End)
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -695,6 +731,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#1-digits-and-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) Digits and Numbers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-words-and-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) Words and Text
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-whitespace-and-separators" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) Whitespace and Separators
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-anchors-startend" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Anchors (Start/End)
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -715,20 +787,260 @@
 <h2 id="regular-expressions-introduction">Regular Expressions Introduction</h2>
 <p>Using the native package re <code>import re</code> in base python one can search text and find patterns which can then be subbed for other patterns or have the patterns returned. </p>
 <h2 id="substitution-example">Substitution example</h2>
-<p>Let's say you have "C_coef * (dlog(hpius) - dlog(hpius_qef))" in a program file but you want to have "C_coef * (dlog(hpius))".</p>
-<p>In the general case you have "C * (dlog(x) - dlog(x_qef))" and you want  "C_coef * (dlog(hpius))"</p>
+<p>Let's say you have <code>C_coef * (dlog(hpius) - dlog(hpius_qef))</code> in a program file but you want to have <code>C_coef * (dlog(hpius))</code>.</p>
+<p>In the general case you have <code>C * (dlog(x) - dlog(x_qef))</code> and you want  <code>C_coef * (dlog(hpius))</code></p>
 <p>you can use the following code (which will be explained later). </p>
-<p>`import re</p>
-<p>text = "C_coef * (dlog(hpius) - dlog(hpius_qef))"</p>
-<p>new_text = re.sub("\s<em>-\s</em>dlog(hpius_qef)", "", text, flags = re.IGNORECASE)'</p>
+<p><code>import re</code></p>
+<p><code>text = "C_coef * (dlog(hpius) - dlog(hpius_qef))"</code></p>
+<p><code>new_text = re.sub("\s*-\s*dlog\(hpius_qef\)", "", text, flags = re.IGNORECASE)</code></p>
 <p>The syntax for <code>re.sub</code> is <code>re.sub(pattern, repleacement_text, original_text, flags)</code></p>
 <p>What this does is look for any instances of any number of spaces (zero or more) using <code>\s*</code> followed by a minus sign followed by any number of spaces. The rest of the code looks for hpius_qef. The brackets must be "escaped" by using <code>\(</code> or <code>\)</code> since brackets have a specific meaning in RegEx (Regular Expressions). </p>
 <h2 id="general-substitution-example">General substitution example</h2>
-<p>`import re</p>
-<p>text = "C_coef * (dlog(hpius) - dlog(hpius_qef))"</p>
-<p>new_text = re.sub("\s<em>-\s</em>dlog([^(]?*_qef)", "", text)'</p>
+<p><code>import re</code></p>
+<p><code>text = "C_coef * (dlog(hpius) - dlog(hpius_qef))"</code></p>
+<p><code>new_text = re.sub("\s*-\s*dlog\([^(]?*_qef\)", "", text)</code></p>
 <p>This code uses <code>[^(]?*</code> to look for any text strings that are not opening brackets so instead of looking for <code>hpius</code> this will replace any code of the form:</p>
 <p><code>-dlog(x_qef)</code> with nothing (i.e. it will erase the text). </p>
+<p>## Python Regex Cheat Sheet (with re.sub and findall Examples)</p>
+<p>This file lists the most used and useful regular expressions (regex) in Python, with both <code>re.sub</code> (replacement) and <code>re.findall</code> (extraction) examples.<br />
+Always use raw strings <code>r"...“</code> in Python to avoid escaping issues. Assume <code>import re</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>[ ] means "one character from this set"</p>
+<p>( ) means "a captured group , i.e. one that can be referenced later using \1 for the first group \2 for the second etc</p>
+<p>(?:) means "a group that cannot be referenced, ie not captured)"</p>
+</div>
+<hr />
+<h2 id="1-digits-and-numbers">1) Digits and Numbers</h2>
+<ul>
+<li>
+<p><strong>One or more digits:</strong> <code>\d+</code><br />
+  Example: <code>re.findall(r"\d+", "Order 123, item 45") -&gt; ['123', '45']</code><br />
+  Example: <code>re.sub(r"\d+", "#", "ID 123, item 45") -&gt; 'ID #, item #'</code></p>
+</li>
+<li>
+<p><strong>Integer or decimal (optional minus):</strong> <code>-?\d+(?:\.\d+)?</code><br />
+  Example: <code>re.findall(r"-?\d+(?:\.\d+)?", "3.14 -42 100") -&gt; ['3.14', '-42', '100']</code><br />
+  Example: <code>re.sub(r"-?\d+(?:\.\d+)?", "NUM", "3.14 -42 100") -&gt; 'NUM NUM NUM'</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="2-words-and-text">2) Words and Text</h2>
+<ul>
+<li>
+<p><strong>Word characters (letters/digits/_):</strong> <code>\w+</code><br />
+  Example: <code>re.findall(r"\w+", "Hello, world!") -&gt; ['Hello', 'world']</code><br />
+  Example: <code>re.sub(r"\w+", "X", "Hello, world!") -&gt; 'X, X!'</code></p>
+</li>
+<li>
+<p><strong>Capitalized word:</strong> <code>[A-Z][a-z]+</code><br />
+  Example: <code>re.findall(r"[A-Z][a-z]+", "Alice and Bob met Eve") -&gt; ['Alice', 'Bob', 'Eve']</code><br />
+  Example: <code>re.sub(r"[A-Z][a-z]+", "Name", "Alice and Bob met Eve") -&gt; 'Name and Name met Name'</code></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>[ ] defines a character class,  and tells regex to look for ONE member of this class</p>
+<p>[ ]+ also defines a character class and tells regex to look for one or more members of this class</p>
+<p>Thus [A-Z][a-z]+ tells regex to look for ONE capital letter followed by one or more common letters</p>
+</div>
+<ul>
+<li><strong>Specific alternatives (OR):</strong> <code>cat|dog|bird</code><br />
+  Example: <code>re.findall(r"cat|dog|bird", "a cat and a dog") -&gt; ['cat', 'dog']</code><br />
+  Example: <code>re.sub(r"cat|dog|bird", "animal", "a cat and a dog") -&gt; 'a animal and a animal'</code></li>
+</ul>
+<hr />
+<h2 id="3-whitespace-and-separators">3) Whitespace and Separators</h2>
+<ul>
+<li>
+<p><strong>One or more whitespace:</strong> <code>\s+</code><br />
+  Example: <code>re.split(r"\s+", "a   b\t c\n d") -&gt; ['a', 'b', 'c', 'd']</code><br />
+  Example: <code>re.sub(r"\s+", " ", "a   b\t c\n d") -&gt; 'a b c d'</code></p>
+</li>
+<li>
+<p><strong>Trim leading/trailing spaces:</strong> <code>^\s+|\s+$</code><br />
+  Example: <code>re.sub(r"^\s+|\s+$", "", "  padded  ") -&gt; 'padded'</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="4-anchors-startend">4) Anchors (Start/End)</h2>
+<ul>
+<li>
+<p><strong>Start of string:</strong> <code>^pattern</code><br />
+  Example: <code>re.match(r"^Hello", "Hello world") is not None -&gt; True</code><br />
+  Example: <code>re.sub(r"^Hello", "Hi", "Hello world") -&gt; 'Hi world'</code></p>
+</li>
+<li>
+<p><strong>End of string:</strong> <code>pattern$</code><br />
+  Example: <code>re.search(r"world$", "Hello world") is not None -&gt; True</code><br />
+  Example: <code>re.sub(r"world$", "Earth", "Hello world") -&gt; 'Hello Earth'</code></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>^pattern (Start of String Anchor)
+Example 1
+re.match(r"^Hello", "Hello world") is not None  # True</p>
+<p>^ asserts: “the match must start at the beginning.”</p>
+<p>"Hello world" does start with "Hello", so it matches.</p>
+<p>If the string were "Say Hello world", it wouldn’t match, because "Hello" is not at the very beginning.</p>
+<p>Example 2
+re.sub(r"^Hello", "Hi", "Hello world")</p>
+<h1 id="hi-world">'Hi world'</h1>
+<p>Regex looks for "Hello" only at the start.</p>
+<p>Finds it at the beginning, replaces it with "Hi".</p>
+<p>Result: "Hi world".</p>
+<ol>
+<li>pattern$ (End of String Anchor)
+Example 1
+re.search(r"world$", "Hello world") is not None  # True</li>
+</ol>
+<p>$ asserts: “the match must end at the end of the string.”</p>
+<p>"Hello world" does end with "world", so it matches.</p>
+<p>If the string was "Hello world!", it would fail, because "world" isn’t the last thing.</p>
+<p>Example 2
+re.sub(r"world$", "Earth", "Hello world")</p>
+<h1 id="hello-earth">'Hello Earth'</h1>
+<p>Regex looks for "world" only if it’s at the very end.</p>
+<p>Replaces it with "Earth".</p>
+<p>Result: "Hello Earth".</p>
+<ol>
+<li>Key Takeaways</li>
+</ol>
+<p>^pattern → “Match pattern only if it’s at the very beginning.”</p>
+<p>pattern$ → “Match pattern only if it’s at the very end.”</p>
+<p>They don’t consume characters — they just pin the match to a position.</p>
+</div>
+<hr />
+<h2 id="5-wildcards-and-any-character">5) Wildcards and Any Character</h2>
+<ul>
+<li>
+<p><strong>Any char except newline:</strong> <code>.</code><br />
+  Example: <code>re.findall(r"h.t", "hat hit hot hut") -&gt; ['hat', 'hit', 'hot', 'hut']</code><br />
+  Example: <code>re.sub(r"h.t", "X", "hat hit hot hut") -&gt; 'X X X X'</code></p>
+</li>
+<li>
+<p><strong>Greedy anything:</strong> <code>.*</code><br />
+  Example: <code>re.findall(r"a.*b", "a---b a-b") -&gt; ['a---b a-b']</code><br />
+  Example: <code>re.sub(r"a.*b", "[...]", "a---b a-b") -&gt; '[...]'</code></p>
+</li>
+<li>
+<p><strong>Non-greedy anything:</strong> <code>.*?</code><br />
+  Example: <code>re.findall(r"a.*?b", "a---b a-b") -&gt; ['a---b', 'a-b']</code><br />
+  Example: <code>re.sub(r"a.*?b", "[short]", "a---b a-b") -&gt; '[short][short]'</code></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Greedy .* → “grab the whole pie, then backtrack only if necessary.”</p>
+<p>Non-greedy .*? → “grab the smallest slice, then expand only if necessary.”</p>
+</div>
+<hr />
+<h2 id="6-groups-and-capturing">6) Groups and Capturing</h2>
+<ul>
+<li>
+<p><strong>Capture group:</strong> <code>(…)</code><br />
+  Example: <code>re.findall(r"(\d{4})-(\d{2})-(\d{2})", "2025-08-21") -&gt; [('2025','08','21')]</code><br />
+  Example: <code>re.sub(r"(\d{4})-(\d{2})-(\d{2})", r"\3/\2/\1", "2025-08-21") -&gt; '21/08/2025'</code></p>
+</li>
+<li>
+<p><strong>Backreference:</strong> <code>(\w+) \1</code><br />
+  Example: <code>re.findall(r"(\w+) \1", "go go stop now now") -&gt; ['go', 'now']</code><br />
+  Example: <code>re.sub(r"(\w+) \1", r"\1", "go go stop now now") -&gt; 'go stop now'</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="7-repetitions">7) Repetitions</h2>
+<ul>
+<li>
+<p><strong>Zero or more:</strong> <code>a*</code><br />
+  Example: <code>re.findall(r"ba*", "b ba baa") -&gt; ['b', 'ba', 'baa']</code><br />
+  Example: <code>re.sub(r"ba*", "B", "b ba baa") -&gt; 'B B B'</code></p>
+</li>
+<li>
+<p><strong>One or more:</strong> <code>a+</code><br />
+  Example: <code>re.findall(r"ba+", "b ba baa") -&gt; ['ba', 'baa']</code><br />
+  Example: <code>re.sub(r"ba+", "B", "b ba baa") -&gt; 'b B B'</code></p>
+</li>
+<li>
+<p><strong>Zero or one:</strong> <code>a?</code><br />
+  Example: <code>re.findall(r"colou?r", "color colour") -&gt; ['color', 'colour']</code><br />
+  Example: <code>re.sub(r"colou?r", "paint", "color colour") -&gt; 'paint paint'</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="8-lookarounds">8) Lookarounds</h2>
+<ul>
+<li>
+<p><strong>Positive lookahead:</strong> <code>\d+(?=\sUSD)</code><br />
+  Example: <code>re.findall(r"\d+(?=\sUSD)", "100 USD, 200 EUR") -&gt; ['100']</code><br />
+  Example: <code>re.sub(r"\d+(?=\sUSD)", "X", "100 USD, 200 EUR") -&gt; 'X USD, 200 EUR'</code></p>
+</li>
+<li>
+<p><strong>Positive lookbehind:</strong> <code>(?&lt;=USD\s)\d+</code><br />
+  Example: <code>re.findall(r"(?&lt;=USD\s)\d+", "USD 100 EUR 200") -&gt; ['100']</code><br />
+  Example: <code>re.sub(r"(?&lt;=USD\s)\d+", "X", "USD 100 EUR 200") -&gt; 'USD X EUR 200'</code></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Positive Lookahead (?=...)</p>
+<p>Pattern: \d+(?=\sUSD)</p>
+<p>\d+ → match one or more digits.</p>
+<p>(?=\sUSD) → assert that immediately after those digits, there is a space + "USD".</p>
+<p>⚠️ Important: the USD part is not consumed, only checked.</p>
+<hr />
+<p>Positive Lookbehind (?&lt;=...)</p>
+<p>Pattern: (?&lt;=USD\s)\d+</p>
+<p>(?&lt;=USD\s) → assert that immediately before the digits, there is "USD " (USD + space).</p>
+<p>\d+ → match one or more digits.</p>
+<p>⚠️ Again: the "USD " is not consumed, only checked.</p>
+</div>
+<hr />
+<h2 id="9-escaping-special-characters">9) Escaping Special Characters</h2>
+<ul>
+<li>
+<p><strong>Literal dot:</strong> <code>\.</code><br />
+  Example: <code>re.findall(r"\.", "a.b c") -&gt; ['.']</code><br />
+  Example: <code>re.sub(r"\.", "-", "a.b c") -&gt; 'a-b c'</code></p>
+</li>
+<li>
+<p><strong>Literal parentheses:</strong> <code>\(</code> and <code>\)</code><br />
+  Example: <code>re.findall(r"\(test\)", "(test) (prod)") -&gt; ['(test)']</code><br />
+  Example: <code>re.sub(r"\(test\)", "X", "(test) (prod)") -&gt; 'X (prod)'</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="10-practical-readymade-patterns">10) Practical Ready‑Made Patterns</h2>
+<ul>
+<li>
+<p><strong>Email:</strong> <code>[\w\.-]+@[\w\.-]+\.\w+</code><br />
+  Example: <code>re.findall(r"[\w\.-]+@[\w\.-]+\.\w+", "a@b.com x@y.co.uk") -&gt; ['a@b.com', 'x@y.co.uk']</code><br />
+  Example: <code>re.sub(r"[\w\.-]+@[\w\.-]+\.\w+", "[hidden]", "a@b.com x@y.co.uk") -&gt; '[hidden] [hidden]'</code></p>
+</li>
+<li>
+<p><strong>URL:</strong> <code>https?://\S+</code><br />
+  Example: <code>re.findall(r"https?://\S+", "Visit https://example.com and http://a.io") -&gt; ['https://example.com', 'http://a.io']</code><br />
+  Example: <code>re.sub(r"https?://\S+", "[link]", "Visit https://example.com and http://a.io") -&gt; 'Visit [link] and [link]'</code></p>
+</li>
+<li>
+<p><strong>Date (YYYY-MM-DD):</strong> <code>\d{4}-\d{2}-\d{2}</code><br />
+  Example: <code>re.findall(r"\d{4}-\d{2}-\d{2}", "Due 2025-08-21") -&gt; ['2025-08-21']</code><br />
+  Example: <code>re.sub(r"\d{4}-\d{2}-\d{2}", "DATE", "Due 2025-08-21") -&gt; 'Due DATE'</code></p>
+</li>
+<li>
+<p><strong>Hex color:</strong> <code>#[0-9A-Fa-f]{6}</code><br />
+  Example: <code>re.findall(r"#[0-9A-Fa-f]{6}", "bg #FF00AA text #abc123") -&gt; ['#FF00AA', '#abc123']</code><br />
+  Example: <code>re.sub(r"#[0-9A-Fa-f]{6}", "COLOR", "bg #FF00AA text #abc123") -&gt; 'bg COLOR text COLOR'</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="tips">Tips</h2>
+<ul>
+<li>Use <code>re.sub</code> for replacements and <code>re.findall</code> for extraction.  </li>
+<li>Use raw strings (<code>r"..."</code>) to avoid escaping confusion.  </li>
+<li>Precompile patterns with <code>re.compile()</code> if reused often.</li>
+</ul>
 
 
 
