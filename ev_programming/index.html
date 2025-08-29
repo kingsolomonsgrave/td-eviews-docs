@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../tables/">
+        <link rel="prev" href="../ev_spools/">
       
       
-        <link rel="next" href="../programming/">
+        <link rel="next" href="../ev_modeling/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Graphs - TD Stress Team Training</title>
+        <title>Programming - TD Stress Team Training</title>
       
     
     
@@ -93,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Graphs
+              Programming
             
           </span>
         </div>
@@ -273,7 +273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/" class="md-nav__link">
+      <a href="../ev_commands/" class="md-nav__link">
         
   
   
@@ -296,12 +296,58 @@
   
   
     <li class="md-nav__item">
-      <a href="../tables/" class="md-nav__link">
+      <a href="../ev_tables/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Tables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ev_graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Graphs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ev_spools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Spools
     
   </span>
   
@@ -331,7 +377,7 @@
   
   
   <span class="md-ellipsis">
-    Graphs
+    Programming
     
   </span>
   
@@ -350,30 +396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Programming
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modeling/" class="md-nav__link">
+      <a href="../ev_modeling/" class="md-nav__link">
         
   
   
@@ -396,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Native_Functions/" class="md-nav__link">
+      <a href="../ev_Native_Functions.md" class="md-nav__link">
         
   
   
@@ -419,7 +442,53 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/" class="md-nav__link">
+      <a href="../How_to_add_model_variables_to_Eviews_workfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to add model variables to EV file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How_to_graph_multiple_variables_loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to graph multiple variables on single graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ev_tips.md" class="md-nav__link">
         
   
   
@@ -578,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../python_eviews/" class="md-nav__link">
+      <a href="../py2eviews_with_python/" class="md-nav__link">
         
   
   
@@ -607,6 +676,52 @@
   
   <span class="md-ellipsis">
     Regular Expressions in Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows_Command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows Command Prompt Primer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../required_packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Required Packages
     
   </span>
   
@@ -656,10 +771,87 @@
 
 
 
-  <h1>Graphs</h1>
+  <h1>Programming</h1>
 
-<p>Chapter 2 Graphs
-TODO</p>
+<p>CHAPTER 6: EViews Programming</p>
+<p>Create a new program</p>
+<blockquote>
+<blockquote>
+<p>program program_name
+Generally each line corresponds to a command so each can be executed pressing enter. One can also execute selected batches by pressing crtl+Enter.</p>
+</blockquote>
+</blockquote>
+<p>To see line numbers press wrap +/- and select Display line numbers.</p>
+<p>Manually break long lines using the _ character:</p>
+<p>This will execute as a single line of code (but _ must be the very LAST character on the line for this to work)</p>
+<p>Comments are formed using the apostrophe before the text. If you wish to commend out (or uncomment) a code block right-mouse click and select Comment Selection or Uncomment Selection respectively.</p>
+<p>Auto format by selecting right-mouse click and select Format Selection.</p>
+<p>The Snapshot button creates a manual snapshot of the code (in case things go wrong).</p>
+<p>Open a program:</p>
+<blockquote>
+<blockquote>
+<p>open program_name.prg</p>
+</blockquote>
+</blockquote>
+<p>OR</p>
+<blockquote>
+<blockquote>
+<p>open "full file path"</p>
+</blockquote>
+</blockquote>
+<p>Hit the run button to execute the entire program (each line in order of appearance) or use the run command.
+EG</p>
+<blockquote>
+<blockquote>
+<p>run program_name</p>
+</blockquote>
+</blockquote>
+<p>OR</p>
+<blockquote>
+<blockquote>
+<p>run full_path_name arg1 arg2 arg 3 (see PDF page 132)</p>
+</blockquote>
+</blockquote>
+<p>To run verbose and specify the max number of errors use</p>
+<blockquote>
+<blockquote>
+<p>run(v, 500) program_name</p>
+</blockquote>
+</blockquote>
+<p>To do so quietly use</p>
+<blockquote>
+<blockquote>
+<p>run(q, 500) program_name</p>
+</blockquote>
+</blockquote>
+<p>Note we can run programs and chose which variables to use at run time. See book page 124,  PDF page 133.</p>
+<blockquote>
+<blockquote>
+<p>run program_name(op1, opt2, opt3=k) arg0 arg1 arg1 (%0 %1 and %2 respectively).</p>
+</blockquote>
+</blockquote>
+<p>Program Variables: two types
+Control variables (numeric)
+String variables
+Control variables are written with a bang at the front (! = bang)</p>
+<p>EG</p>
+<blockquote>
+<blockquote>
+<p>!x
+!1
+!i
+!counter</p>
+</blockquote>
+</blockquote>
+<p>These are assigned using the = sign and are not stored as variables.</p>
+<p>NOTE: control variables are used in programs via text substitution. If EViews encounters a control variable in a program it substitutes the text value of that variable into the program. One of the implications of the text substitution is that you may lose some numeric accuracy when using a program variable due to the conversion in to and out of a text representation of the number.</p>
+<p>String program variables are text rather than numeric and are stored for temporraty use using the % character</p>
+<blockquote>
+<blockquote>
+<p>%value  = "value in millions of US dollars"</p>
+</blockquote>
+</blockquote>
+<p>Used to help build up command text, variable names, or other string values. An assigned string variable may appear in any expression in place of the underlying string.</p>
 
 
 

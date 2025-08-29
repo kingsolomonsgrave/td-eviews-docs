@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../commands/">
+        <link rel="prev" href="../ev_tables/">
       
       
-        <link rel="next" href="../graphs/">
+        <link rel="next" href="../ev_spools/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Tables - TD Stress Team Training</title>
+        <title>Graphs - TD Stress Team Training</title>
       
     
     
@@ -93,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tables
+              Graphs
             
           </span>
         </div>
@@ -273,12 +273,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/" class="md-nav__link">
+      <a href="../ev_commands/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ev_tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tables
     
   </span>
   
@@ -308,7 +331,7 @@
   
   
   <span class="md-ellipsis">
-    Tables
+    Graphs
     
   </span>
   
@@ -327,12 +350,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../graphs/" class="md-nav__link">
+      <a href="../ev_spools/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Graphs
+    Spools
     
   </span>
   
@@ -350,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/" class="md-nav__link">
+      <a href="../ev_programming/" class="md-nav__link">
         
   
   
@@ -373,7 +396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../modeling/" class="md-nav__link">
+      <a href="../ev_modeling/" class="md-nav__link">
         
   
   
@@ -396,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Native_Functions/" class="md-nav__link">
+      <a href="../ev_Native_Functions.md" class="md-nav__link">
         
   
   
@@ -419,7 +442,53 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/" class="md-nav__link">
+      <a href="../How_to_add_model_variables_to_Eviews_workfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to add model variables to EV file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How_to_graph_multiple_variables_loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to graph multiple variables on single graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ev_tips.md" class="md-nav__link">
         
   
   
@@ -578,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../python_eviews/" class="md-nav__link">
+      <a href="../py2eviews_with_python/" class="md-nav__link">
         
   
   
@@ -607,6 +676,52 @@
   
   <span class="md-ellipsis">
     Regular Expressions in Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows_Command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows Command Prompt Primer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../required_packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Required Packages
     
   </span>
   
@@ -656,37 +771,10 @@
 
 
 
-  <h1>Tables</h1>
+  <h1>Graphs</h1>
 
-<p>Chapter 3 Tables and Spreadsheets</p>
-<p>Create a table either by freezing an object view or by issuing a table declaration.</p>
-<p>Creating a table from another object: combing the view and freeze commands.
-For example, if grp6.stats shows the stats view of the group grp6 then</p>
-<blockquote>
-<blockquote>
-<p>freeze(name_of_table) grpt.stats  create and displays a table and names it "name_of_table" which contains the contents of grp6.stats</p>
-</blockquote>
-</blockquote>
-<p>NOTE if using commands do not create unnamed objects as they you will be unable to reference them.</p>
-<p>Declaring a table: &gt;&gt; table(10, 20) name_of_table  this creates a table with 10 rows, 20 columns and gives it a name.</p>
-<p>NOTE: tables can be re-declared to a larger size without destroying data.</p>
-<p>NOTE ALSO: tables are automatically expended if you try to add outside of their current size, this is different from matrices or vectors which throw an error.</p>
-<p>The setcell command can be used to alter a single cell in a table.</p>
-<blockquote>
-<blockquote>
-<p>setcell(name_of_table, row, col, content)
-For example &gt;&gt; setcell(tab1, 9, 12, %label)  this sets whatever is associated with the string "%label" into row 9 column 12 of the table named tab1.</p>
-</blockquote>
-</blockquote>
-<p>For tables we can center"c" right "r" or left "l" justify text setcell(big_tab, 1, 1, %label, "c") will set whatever is in %label to row 1 col 1 of big_tab and center justify the text.</p>
-<p>Set width and hieight, formatting, fonts on PDF page 69 – 76.</p>
-<p>Saving tables: &gt;&gt; tab1.save(t=csv, n = "NAN") name_of_saved_table
-Or</p>
-<blockquote>
-<blockquote>
-<p>tab1.save(r=B2:C10, t=html, s=.05) c:\data\mytable2  can select rows and cols to save and also choose the destination of the file</p>
-</blockquote>
-</blockquote>
+<p>Chapter 2 Graphs
+TODO</p>
 
 
 

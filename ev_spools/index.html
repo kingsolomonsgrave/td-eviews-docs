@@ -9,6 +9,10 @@
       
       
       
+        <link rel="prev" href="../ev_graphs/">
+      
+      
+        <link rel="next" href="../ev_programming/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -16,7 +20,7 @@
     
     
       
-        <title>Strings - TD Stress Team Training</title>
+        <title>Spools - TD Stress Team Training</title>
       
     
     
@@ -89,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Strings
+              Spools
             
           </span>
         </div>
@@ -226,18 +230,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -253,7 +259,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Eviews
@@ -267,7 +273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/" class="md-nav__link">
+      <a href="../ev_commands/" class="md-nav__link">
         
   
   
@@ -290,7 +296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tables/" class="md-nav__link">
+      <a href="../ev_tables/" class="md-nav__link">
         
   
   
@@ -313,7 +319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graphs/" class="md-nav__link">
+      <a href="../ev_graphs/" class="md-nav__link">
         
   
   
@@ -333,10 +339,41 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Spools
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../programming/" class="md-nav__link">
+      <a href="../ev_programming/" class="md-nav__link">
         
   
   
@@ -359,7 +396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../modeling/" class="md-nav__link">
+      <a href="../ev_modeling/" class="md-nav__link">
         
   
   
@@ -382,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Native_Functions/" class="md-nav__link">
+      <a href="../ev_Native_Functions.md" class="md-nav__link">
         
   
   
@@ -405,7 +442,53 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/" class="md-nav__link">
+      <a href="../How_to_add_model_variables_to_Eviews_workfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to add model variables to EV file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How_to_graph_multiple_variables_loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to graph multiple variables on single graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ev_tips.md" class="md-nav__link">
         
   
   
@@ -564,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../python_eviews/" class="md-nav__link">
+      <a href="../py2eviews_with_python/" class="md-nav__link">
         
   
   
@@ -593,6 +676,52 @@
   
   <span class="md-ellipsis">
     Regular Expressions in Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows_Command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows Command Prompt Primer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../required_packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Required Packages
     
   </span>
   
@@ -642,74 +771,35 @@
 
 
 
-  <h1>Strings</h1>
+  <h1>Spools</h1>
 
-<p>Chapter 5: Strings
-Use double quotes for a "string" in Eviews. The null string is represented as "".  The null string can also be represented as a missing value.</p>
-<p>String Operators:</p>
-<p>(1) concatenation—plus (“+”)
-(2) relational—equal to (“=”),
-not equal to (“&lt;&gt;”),
-greater than (“&gt;”),
-greater than or equal to (“&gt;=”),
-less than (“&lt;=”).</p>
-<p>When concatenating strings the empty string is ignored (interpreted as a blank string) which means adding "" to a string will not change the string.</p>
-<p>String Ordering: alphabetical ordering places hyphens and aposrophes before alphanumeric symbols. In terms of upper and lower case letters "a" precedes "A".</p>
-<p>With strings greater than or less than indicates ordering, note that if the relation is true then the comparison returns a 1 and 0 otherwise:</p>
-<p>To obtain sections or portions of a string use @left @right and @mid:</p>
-<p>@upper and @lower turn the string into all upper or lowercase.
-@ltrim @rtrim and @trim ignore leading spaces (these functions do not trim the string!)
-The following all return 1:</p>
-<p>Relational operators treat emptry strings as missing values so comparisons with non-empty strings produce NAs.</p>
-<p>String Lists: a string with three words would be thought of as having 3 elements. Double quotes are used to denote multi word elements in a string list, which is to say an element in double quotes can have multiple words.</p>
-<p>" ""this thing"" ""has exactly"" ""three elements"" "  a " begins and ends the string but each multi word element is enclosed in "" also.</p>
-<p>String Functions
-@length(str)  the number of CHARACTERS in a string
-@wcount(str)  integer value of the number of string elements in a string list.
-@wfind("I did it", "did")  returns the value 2, because did is the second element in the string list</p>
-<p>@wfindnc(str)  same as above but not case sensitive</p>
-<p>@isempty(str)  1 if empty, 0 otherwise
-@eqna(str1, str2)  1 if strings are equal, 0 otherwise: treats null strings as ordinary blank strings and NOT as missing values!</p>
-<p>@neqna(str1, str2)  returns 1 if strings are NOT equal and 0 otherwise.
-@val(str[, fmt]) converts the sting into a numeric value if possible and returns NA otherwise.</p>
-<p>@dateval(str[,fmt])  converts a string to a date  number (also see @dtoo)</p>
-<p>String manipulation:</p>
-<p>@left(str, int)  returns a string containing the int CHARACTERS at the left of the string</p>
-<p>@wleft(str_list, int)  returns a string containing the int ELEMENTS of a string LIST to the left of the string list.
-@right and @wright are similar.
-@mid and @wmid work the same way but require can take int1 and int2 arguments (if int2 is not specified it returns the rest of the characters in the string.
-@mid(str, int1, int2) and @wmid(str_list, int1, int2)</p>
-<p>@word(str_list, int)  returns the int element of the string list (@wordq is the same but preserves quotes)</p>
-<p>@wkeep(str_list, "pattern_list") returns the list of elements in str_list that match the pattern in pattern list.</p>
-<p>EG:</p>
-<p>@wdrop(str_list, "pattern_list") returns a string list without the elements that match the pattern list</p>
-<p>@replace and @wreplace replace work on string list elements and patterns respectively</p>
-<p>@replace(str1, str2, str3)  within str1, find str2 and exchange it for str3 .
-@wreplace(str_list, “src_pattern”, “replace_pattern”)</p>
-<p>EG: @wreplace("ABC AB", "<em>B</em>", "<em>X</em>") replaces all instances of “B” with “X”, returning the string “AXC AX”</p>
-<p>@wintersect(str_list1, str_list2)  acts like intersection of sets, same for @wunion</p>
-<p>@wunique(str_list)  removes duplicates and returns the list</p>
-<p>@wnotin(str_list1, str_list2)  returns all elements of str_list1 that are NOT in str_list2</p>
-<p>@wsort(str_list[, "D"]) sorts elements of a list, use D for sorting in descending order</p>
-<p>Using strings in Eviews</p>
-<p>If making a temporarty string use the % character
-EG</p>
+<p>Chapter 4 Spools:</p>
+<p>Spools combine output data: tables, graphs, text, other spools…this allows us to organize Eviews results as a log of output or for a presentation.  See Ch 18 of Users Guide 1 book page 877.</p>
+<p>Create a spool &gt;&gt; spool my_spool</p>
+<p>A new spool can be created by printing to a nonexistent spool!</p>
 <blockquote>
 <blockquote>
-<p>%value = "a string of values"  this will exist only during the time Eviews is running!</p>
+<p>output (s) my_spool  this tells EViews to send all subsequent print jobs to my_spool (see output book page 444 of command manual)</p>
 </blockquote>
 </blockquote>
-<p>If you want the string to exist in general use</p>
+<p>After the above command we can do the following:</p>
 <blockquote>
 <blockquote>
+<p>tabl1.print
+eq1.output(p)
+output off</p>
+</blockquote>
+</blockquote>
+<p>Tab1 and eq1 will both be appended to my_spool</p>
+<p>Adding to a spool:</p>
 <blockquote>
-<p>string string_name = "a string of values"</p>
+<blockquote>
+<p>output (s) my_old_spool
+ser01.line(p)  print a line graph of series 1, this is printed because of the (p) command
+grp01.scat(p)
+eq1.wald(p) c(1)=c(2)</p>
 </blockquote>
 </blockquote>
-</blockquote>
-<p>Viewing strings: strings can be views as a string (a list of characters) or a word list (a list of elements).</p>
-<p>String vectors say PDF page 102.</p>
-<p>Dates see PDF page 103</p>
 
 
 
