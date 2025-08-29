@@ -897,7 +897,7 @@
 <p><code>cd</code> will change the current directory to the path that follows the cd command. For example if you are in <code>C:\&gt;</code> then you can get to a folder called 'Public' in the users folder on the C drive by typing <code>cd users/public</code>.</p>
 <p><code>..cd</code> will go up one level in the directory tree. For example if you are in the users\public folder you would see <code>C:\Users\Public&gt;</code> and if you wish to go back to the Users director you would type <code>cd ..</code> and the prompt would change to <code>C:\Users&gt;</code></p>
 <p>`dir' will display the contents of the current folder.</p>
-<p><code>mkdir' will create a folder in the current directory. It must be followed by the name of the folder. For example</code>C:\users&gt; mkdir new_folder` would create a new folder called new_folder in the users directory. </p>
+<p><code>mkdir</code> will create a folder in the current directory. It must be followed by the name of the folder. For example <code>C:\users&gt; mkdir new_folder</code> would create a new folder called new_folder in the users directory. </p>
 <p><code>rmdir</code> removes a directory. Example: <code>rmdir new_folder</code> would remove the folder new_folder from users. </p>
 <p><code>copy</code>will copy a file. Example: if you are in C;&gt; you can type <code>copy users\tap9000\file.txt users\public\backup.txt</code> to copy a file in the tap9000 folder to the public folder (or the same folder). </p>
 <p><code>del</code> deletes a file. <code>del filename.txt</code></p>
@@ -912,7 +912,7 @@
 <p class="admonition-title">Important</p>
 <p>In order to access folders with spaces one must use quotation marks. </p>
 </div>
-<p>For example <code>cd C:\Users&gt; cd "C:\Users\tap9000\saved games"</code> will give an error but <code>cd "C:\Users&gt; cd "C:\Users\tap9000\saved games"</code> will not. </p>
+<p>For example <code>cd C:\Users&gt; cd C:\Users\tap9000\saved games</code> will give an error but <code>cd "C:\Users&gt; cd "C:\Users\tap9000\saved games"</code> will run without an error.  </p>
 <h2 id="the-pipe-operator">The Pipe Operator</h2>
 <p>The pipe operator (|) takes the output of one command and uses it as the input of another. </p>
 <p>For example <code>dir|more</code>. The <code>dir</code> command tells the Command Prompt to show items in the current folder, <code>more</code> tells the CP to list them one page at a time (useful for folders containing many objects).</p>
