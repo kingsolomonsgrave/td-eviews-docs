@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#python-helper-functions" class="md-skip">
+        <a href="#stress-tools-python-helper-functions" class="md-skip">
           Skip to content
         </a>
       
@@ -784,11 +784,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Source
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Full Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changelog-this-refactor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changelog (this refactor)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -835,11 +895,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Source
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Full Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changelog-this-refactor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changelog (this refactor)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -859,21 +979,799 @@
 
 
 
-<h1 id="python-helper-functions">Python Helper Functions</h1>
-<p>This document provides helper functions with documentation for CPI
-stress testing workflows.</p>
+<h1 id="stress-tools-python-helper-functions">Stress Tools — Python Helper Functions</h1>
+<p>A documented and optimized set of helper utilities for CPI stress testing workflows (quarterly time series),
+including EViews interop, growth/levels conversions, and donor–target stress propagation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All time series are expected to be <strong>quarterly</strong> with a <code>pandas.PeriodIndex(freq="Q")</code> unless stated otherwise.
+Percent rates are in <strong>percent units</strong> (e.g., 2.5 = 2.5%).</p>
+</div>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#api-reference">API Reference</a></li>
+<li><a href="#full-source">Full Source</a></li>
+</ul>
 <h2 id="overview">Overview</h2>
 <ul>
-<li>Utility functions for EViews integration (<code>py2eviews</code>)</li>
-<li>Data cleaning and transformation utilities</li>
-<li>Growth-to-level conversions</li>
-<li>Donor--target stress propagation</li>
+<li><strong>EViews interop</strong> via optional <code>py2eviews</code> wrapper functions: <code>get_page</code>, <code>select_page</code>, <code>push</code>.</li>
+<li><strong>Pandas/NumPy utilities</strong> for cleaning, joining, YoY, annualization, Period handling.</li>
+<li><strong>Growth → Levels conversions</strong> that correctly map YoY (or QoQ) paths to levels after a join point.</li>
+<li><strong>Donor–target stress propagation</strong> using a simple OLS beta model (<code>main</code>).</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pandas<span class="w"> </span>numpy
+<span class="c1"># Optional for EViews integration</span>
+pip<span class="w"> </span>install<span class="w"> </span>py2eviews
+</code></pre></div>
+<h2 id="quick-start">Quick Start</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">stress_tools</span> <span class="kn">import</span> <span class="n">to_q</span><span class="p">,</span> <span class="n">yoy</span><span class="p">,</span> <span class="n">yoy_to_levels</span><span class="p">,</span> <span class="n">main</span>
+
+<span class="c1"># historical (YoY %) and scenario (YoY % + shocks) frames prepared separately...</span>
+<span class="c1"># Convert any datetime index to quarterly PeriodIndex</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">to_q</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+<span class="n">scen</span> <span class="o">=</span> <span class="n">to_q</span><span class="p">(</span><span class="n">scen</span><span class="p">)</span>
+
+<span class="c1"># Estimate betas, propagate donor shocks to targets (returns YoY % for targets)</span>
+<span class="n">mst_yoy</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="n">scen</span><span class="p">)</span>
+
+<span class="c1"># Convert YoY path to levels after a join point using historical levels</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="n">yoy_to_levels</span><span class="p">(</span>
+    <span class="n">yoy_rates_pct</span><span class="o">=</span><span class="n">mst_yoy</span><span class="p">,</span>
+    <span class="n">first_forecast_date</span><span class="o">=</span><span class="s2">&quot;2025Q4&quot;</span><span class="p">,</span>
+    <span class="n">levels_start</span><span class="o">=</span><span class="n">historical_levels</span><span class="p">,</span>
+    <span class="n">annual</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="api-reference">API Reference</h2>
+<p>High-level functions:</p>
+<ul>
+<li><code>get_page(pagename, ...)</code> — Pull data from an EViews page (optional dependency).</li>
+<li><code>select_page(page_name, ...)</code> — Select EViews page.</li>
+<li><code>push(df, ...)</code> — Push DataFrame to EViews (converts <code>PeriodIndex(Q)</code> to start-of-quarter timestamps).</li>
+<li><code>join(df1, df2, bind, use_name=1)</code> — Concatenate by rows (<code>'r'</code>) or columns (<code>'c'</code>) with validation.</li>
+<li><code>yoy(df, label="_yoy", periods=4)</code> — Log-diff YoY % change ×100.</li>
+<li><code>annualize_qoq(qoq_pct)</code> — Convert QoQ % to annualized %.</li>
+<li><code>yoy_to_levels(yoy_rates_pct, first_forecast_date, levels_start, annual=True)</code> — Convert growth to <strong>levels</strong> after join.</li>
+<li><code>main(hist, scen)</code> — Estimate donor betas (US, CA) on history and propagate to targets (UK, AU, EA, JP).</li>
 </ul>
 <hr />
+<h2 id="full-source">Full Source</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="c1"># (rest of the code omitted here for brevity - but in final export we&#39;ll include full text)</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Optional: only import if available; keep module import cheap</span>
+<span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover - environment specific</span>
+    <span class="kn">import</span> <span class="nn">py2eviews</span> <span class="k">as</span> <span class="nn">evp</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># pragma: no cover - optional dependency</span>
+    <span class="n">evp</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># String / parsing helpers</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">rmv_percent</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove percent-signs from specified columns and convert to float.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : DataFrame</span>
+<span class="sd">        Input frame that contains percentage-like text columns.</span>
+<span class="sd">    cols : sequence of str</span>
+<span class="sd">        Column names to clean.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        A copy of ``df[cols]`` with ``&quot;%&quot;`` removed (via regex) and dtype float.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Also trims whitespace and thousands separators (&quot;,&quot;) if present.</span>
+<span class="sd">    - Non-convertible values become ``NaN``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">cols</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;%&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Convenience inspection</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;2024Q1&quot;</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;2026Q2&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quickly slice a PeriodIndex-ed frame to inspect a join window.</span>
+
+<span class="sd">    Useful for visual checks where the historical portion is in levels and the</span>
+<span class="sd">    forecast portion is in YoY percent change.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : DataFrame</span>
+<span class="sd">        Quarterly PeriodIndex-ed frame.</span>
+<span class="sd">    start, end : str or None</span>
+<span class="sd">        Inclusive slice bounds like ``&quot;2025Q1&quot;``. Use ``None`` to omit a bound.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        Sliced view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">end</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">end</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">start</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># EViews interop</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span>
+    <span class="n">pagename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">filter_</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="n">instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;existing&quot;</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">quarterly_period</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pull a page from the currently open EViews workfile.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pagename : str</span>
+<span class="sd">        EViews page name to pull.</span>
+<span class="sd">    filter_ : str, default &quot;*&quot;</span>
+<span class="sd">        Wildcard filter for variable names.</span>
+<span class="sd">    instance : {&quot;existing&quot;, &quot;new&quot;}</span>
+<span class="sd">        See ``py2eviews.GetEViewsApp``.</span>
+<span class="sd">    show : bool | str, default False</span>
+<span class="sd">        Show the EViews GUI window. Accepts truthy strings for backward</span>
+<span class="sd">        compatibility with older code.</span>
+<span class="sd">    quarterly_period : bool, default True</span>
+<span class="sd">        If True, convert the DatetimeIndex to a quarterly PeriodIndex.</span>
+<span class="sd">    verbose : bool, default False</span>
+<span class="sd">        If True, print a tail preview.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        Data fetched from EViews, optionally reindexed to ``PeriodIndex(freq=&#39;Q&#39;)``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">evp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;py2eviews is not installed/available in this environment.&quot;</span><span class="p">)</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">evp</span><span class="o">.</span><span class="n">GetEViewsApp</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">instance</span><span class="p">,</span> <span class="n">showwindow</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">show</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">evp</span><span class="o">.</span><span class="n">GetWFAsPython</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">pagename</span><span class="o">=</span><span class="n">pagename</span><span class="p">,</span> <span class="n">namefilter</span><span class="o">=</span><span class="n">filter_</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">quarterly_period</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">select_page</span><span class="p">(</span><span class="n">page_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;existing&quot;</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Select an EViews page in the current workfile.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    page_name : str</span>
+<span class="sd">        Page to select.</span>
+<span class="sd">    instance, show : see :func:`get_page`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">evp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;py2eviews is not installed/available in this environment.&quot;</span><span class="p">)</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">evp</span><span class="o">.</span><span class="n">GetEViewsApp</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">instance</span><span class="p">,</span> <span class="n">showwindow</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">show</span><span class="p">))</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pageselect </span><span class="si">{</span><span class="n">page_name</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">evp</span><span class="o">.</span><span class="n">Run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;existing&quot;</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">newwf</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Push a DataFrame to the current EViews workfile page.</span>
+
+<span class="sd">    Index handling</span>
+<span class="sd">    --------------</span>
+<span class="sd">    - If the frame is indexed by quarterly Periods, convert to their start-of-</span>
+<span class="sd">      quarter timestamps (EViews-friendly) before pushing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : DataFrame</span>
+<span class="sd">        Data to push.</span>
+<span class="sd">    instance, show : see :func:`get_page`.</span>
+<span class="sd">    newwf : bool, default False</span>
+<span class="sd">        If True, create a new workfile; otherwise push to current page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">evp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;py2eviews is not installed/available in this environment.&quot;</span><span class="p">)</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">evp</span><span class="o">.</span><span class="n">GetEViewsApp</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">instance</span><span class="p">,</span> <span class="n">showwindow</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">show</span><span class="p">))</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">)</span> <span class="ow">and</span> <span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">freqstr</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">):</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_timestamp</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;start&quot;</span><span class="p">)</span>
+    <span class="n">evp</span><span class="o">.</span><span class="n">PutPythonAsWF</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">newwf</span><span class="o">=</span><span class="n">newwf</span><span class="p">)</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Pandas utilities</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the integer location of ``date`` in the index.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : DataFrame</span>
+<span class="sd">    date : str or Period</span>
+<span class="sd">        A label present in ``df.index`` (e.g., ``&quot;2025Q4&quot;``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">date</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">rename_rbind</span><span class="p">(</span>
+    <span class="n">df1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">df2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">first_forecast_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dropna</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Row-bind two frames across a forecast join, aligning column names.</span>
+
+<span class="sd">    ``df1`` is treated as the historical/TD baseline; ``df2`` contains a</span>
+<span class="sd">    forecast that starts at ``first_forecast_date`` (inclusive).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df1, df2 : DataFrame</span>
+<span class="sd">        Must have the same number of columns.</span>
+<span class="sd">    first_forecast_date : str</span>
+<span class="sd">        Quarter label, e.g. ``&quot;2025Q4&quot;``.</span>
+<span class="sd">    dropna : bool, default False</span>
+<span class="sd">        Drop any rows containing NA after concatenation.</span>
+<span class="sd">    verbose : bool, default False</span>
+<span class="sd">        Print helpful context.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">period</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="n">first_forecast_date</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">df1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">df2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DataFrames must have the same number of columns.&quot;</span><span class="p">)</span>
+
+    <span class="n">df1_hist</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span> <span class="n">period</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">df2_fcst</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">period</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df2_fcst</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df1_hist</span><span class="o">.</span><span class="n">columns</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1_hist</span><span class="p">,</span> <span class="n">df2_fcst</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dropna</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Joined at&quot;</span><span class="p">,</span> <span class="n">period</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">annualize</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">join_to_df</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute annualized growth from a **level** column using pct_change.</span>
+
+<span class="sd">    Formula: ``((1 + qoq) ** 4 - 1) * 100`` where ``qoq = df[col].pct_change()``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : DataFrame</span>
+<span class="sd">    col : str</span>
+<span class="sd">        Column that represents **levels**.</span>
+<span class="sd">    join_to_df : bool, default True</span>
+<span class="sd">        If True, add a new column ``f&quot;{col}_ANN&quot;`` and return the frame;</span>
+<span class="sd">        else return the computed Series.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ann</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">())</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">if</span> <span class="n">join_to_df</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">_ANN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ann</span>
+        <span class="k">return</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">ann</span>
+
+
+<span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">df1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">df2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">use_name</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Concatenate two objects either by rows (``bind=&#39;r&#39;``) or columns (``bind=&#39;c&#39;``).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df1, df2 : Series or DataFrame</span>
+<span class="sd">    bind : {&#39;r&#39;, &#39;c&#39;}</span>
+<span class="sd">        ``&#39;r&#39;`` → row-bind (stack); ``&#39;c&#39;`` → column-bind (side-by-side).</span>
+<span class="sd">    use_name : {1, 2}, default 1</span>
+<span class="sd">        For row-binding with mismatched column names, choose whose column names</span>
+<span class="sd">        to keep: 1 → use ``df1`` names; 2 → use ``df2`` names.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="k">else</span> <span class="n">df1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">d2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="k">else</span> <span class="n">df2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">bind</span> <span class="o">==</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">d1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">d2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Row-bind requires same number of columns.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_name</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">d2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">columns</span>
+        <span class="k">elif</span> <span class="n">use_name</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">d1</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">columns</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">bind</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;bind must be &#39;r&#39; or &#39;c&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">yoy</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_yoy&quot;</span><span class="p">,</span>
+    <span class="n">periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute year-on-year % change using log-differences (×100).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : Series or DataFrame of **levels**</span>
+<span class="sd">    label : str, default &quot;_yoy&quot;</span>
+<span class="sd">        Suffix to add to resulting column names (DataFrame case).</span>
+<span class="sd">    periods : int, default 4</span>
+<span class="sd">        Number of periods to lag for YoY (4 for quarterly data).</span>
+<span class="sd">    verbose : bool, default False</span>
+<span class="sd">        Print a preview.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        If input is a Series, returns a single-column DataFrame for consistency.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="k">else</span> <span class="n">df</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">periods</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+        <span class="n">temp</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="si">}{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">temp</span>
+
+
+<span class="k">def</span> <span class="nf">to_q</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure the index is a quarterly PeriodIndex.</span>
+
+<span class="sd">    Returns a **copy** with ``freq=&#39;Q&#39;`` PeriodIndex.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">suffix</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_yoy&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Append ``label`` to column names if not already present.&quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="si">}{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">out</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">conv_date</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a DatetimeIndex to a PeriodIndex.</span>
+
+<span class="sd">    Currently supports quarterly (``period=&#39;Q&#39;``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">period</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;Q&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only quarterly conversion is supported.&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">repeat_last_row</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">last_idx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extend a frame by repeating the last row ``n`` more quarters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : DataFrame</span>
+<span class="sd">    last_idx : str or Period</span>
+<span class="sd">        Label of the last historical quarter to anchor on.</span>
+<span class="sd">    n : int, default 14</span>
+<span class="sd">        Number of quarters to append by forward-filling the last row.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">last_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="n">last_idx</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">last_idx</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">last_idx</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">extended_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">extended_index</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">last_idx</span><span class="p">:]</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">last_idx</span><span class="p">:]</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">demean</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Column-wise de-meaned copy of ``df``.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">df</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Growth/levels conversions</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">yoy_to_levels</span><span class="p">(</span>
+    <span class="n">yoy_rates_pct</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">first_forecast_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">levels_start</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">annual</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">lag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert YoY or QoQ growth paths into **levels** after a join point.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    yoy_rates_pct : DataFrame</span>
+<span class="sd">        Growth rates in percent units. If ``annual=True``, treat values as YoY</span>
+<span class="sd">        growth; otherwise as QoQ growth.</span>
+<span class="sd">    first_forecast_date : str</span>
+<span class="sd">        The first quarter **to be computed** using the growth rates (e.g.,</span>
+<span class="sd">        ``&quot;2025Q4&quot;``). ``levels_start`` must include the prior quarter level.</span>
+<span class="sd">    levels_start : DataFrame</span>
+<span class="sd">        Historical **levels** through at least the quarter **before**</span>
+<span class="sd">        ``first_forecast_date`` for the same columns as ``yoy_rates_pct``.</span>
+<span class="sd">    annual : bool, default True</span>
+<span class="sd">        Interpret input rates as YoY if True; QoQ if False.</span>
+<span class="sd">    lag : int, default 4</span>
+<span class="sd">        Number of quarters in a year, used if ``annual=False``.</span>
+<span class="sd">    verbose : bool, default False</span>
+<span class="sd">        Print a tail preview.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        Levels series combining ``levels_start`` (up to join-1) and simulated</span>
+<span class="sd">        levels thereafter.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - For annual YoY rates ``r_t`` (in percent), quarterly growth is</span>
+<span class="sd">      ``g_t = (1 + r_t/100)**(1/4) - 1`` and ``L_t = L_{t-1} * (1 + g_t)``.</span>
+<span class="sd">    - For QoQ rates ``q_t`` (percent), ``L_t = L_{t-1} * (1 + q_t/100)``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">period</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="n">first_forecast_date</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Align and prepare containers</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">levels_start</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="n">yoy_rates_pct</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Ensure indexes are PeriodIndex(Q)</span>
+    <span class="n">levels</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">levels</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="n">rates</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">rates</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+
+    <span class="c1"># We will iteratively fill from period onward</span>
+    <span class="n">all_index</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">rates</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">all_index</span><span class="p">)</span>
+
+    <span class="c1"># Iterate only over the forecast path for clarity and stability</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">rates</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cols</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No overlapping columns between levels_start and yoy_rates_pct.&quot;</span><span class="p">)</span>
+
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">period</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">prev</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">levels</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;levels_start must include the quarter prior to </span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2"> (i.e., </span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">).&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">all_index</span><span class="p">[</span><span class="n">all_index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">period</span><span class="p">)</span> <span class="p">:]:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="c1"># no new rate information; carry forward last level</span>
+            <span class="n">levels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">annual</span><span class="p">:</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">rates</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">/</span> <span class="mf">100.0</span>
+        <span class="n">levels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span> <span class="n">all_index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">cols</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">annualize_qoq</span><span class="p">(</span><span class="n">qoq_pct</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert QoQ percent changes into annualized percent changes.</span>
+
+<span class="sd">    Formula: ``(1 + qoq/100)**4 - 1`` → ×100 percent units.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">qoq_pct</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">100.0</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># File readers (MST packages, generic CSV/XLSX)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">read_mst_2025</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read a specific 2025 MST Excel package format into a tidy quarterly frame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to the Excel file (sheet name &quot;Fiscal Variable&quot;).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        YoY percent changes with ``PeriodIndex(freq=&#39;Q&#39;)`` starting 2025Q4.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ex_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Fiscal Variable&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">ex_</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">ex</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mst_vars_yoy</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">4</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">115</span><span class="p">]</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="s2">&quot;2025Q4&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">mst_vars_yoy</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="n">mst_vars_yoy</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">dates</span>
+    <span class="k">return</span> <span class="n">mst_vars_yoy</span>
+
+
+<span class="k">def</span> <span class="nf">plot_check</span><span class="p">(</span><span class="n">df1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">df2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quick-and-dirty plot to compare two frames side-by-side.&quot;&quot;&quot;</span>
+    <span class="n">join</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index_col</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sheet_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read CSV or Excel and return a quarterly PeriodIndex-ed frame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        File path. CSV is assumed when ``sheet_name`` is None.</span>
+<span class="sd">    index_col : str, optional</span>
+<span class="sd">        Column to use as index for CSV files. Defaults to ``&quot;_date_&quot;``.</span>
+<span class="sd">    sheet_name : str, optional</span>
+<span class="sd">        If provided, read the specified Excel sheet instead of CSV.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">sheet_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="s2">&quot;_date_&quot;</span> <span class="k">if</span> <span class="n">index_col</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">index_col</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">read_mst</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read an MST CSV (OSFI stressed data) and return CA/US YoY percent changes.</span>
+
+<span class="sd">    Expected CSV layout is transposed so that the useful variables are in rows</span>
+<span class="sd">    after transformation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_mst</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">df_mst</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;CA&quot;</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
+    <span class="n">df_mst</span> <span class="o">=</span> <span class="n">df_mst</span><span class="p">[[</span><span class="s2">&quot;CA&quot;</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">25</span><span class="p">]</span>
+    <span class="n">q_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2025Q4&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2030Q3&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+    <span class="n">df_mst</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">q_idx</span>
+    <span class="n">mst_given_yoy</span> <span class="o">=</span> <span class="n">rmv_percent</span><span class="p">(</span><span class="n">df_mst</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;CA&quot;</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;CA&quot;</span><span class="p">:</span> <span class="s2">&quot;CPICA_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">:</span> <span class="s2">&quot;CPIUS_MST&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">mst_given_yoy</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Donor–target stress propagation (simple linear beta model)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">ols_betas</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">add_intercept</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate OLS coefficients for ``y ~ X`` using least squares.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y : array-like, shape (T,)</span>
+<span class="sd">    X : array-like, shape (T, K)</span>
+<span class="sd">    add_intercept : bool, default False</span>
+<span class="sd">        If True, include a column of ones in ``X``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">add_intercept</span><span class="p">:</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span> <span class="n">X</span><span class="p">])</span>
+    <span class="n">beta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">beta</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">hist</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">scen</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate donor betas on history and apply them to scenario shocks.</span>
+
+<span class="sd">    Targets: UK, AU, EA, JP; Donors: US, CA. All series are YoY percent changes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hist : DataFrame</span>
+<span class="sd">        Historical YoY percent-change data with columns:</span>
+<span class="sd">        ``[&#39;CPIUS_TDBS&#39;,&#39;CPICA_TDBS&#39;,&#39;CPIUK_TDBS&#39;,&#39;CPIAU_TDBS&#39;,&#39;CPIEA_TDBS&#39;,&#39;CPIJP_TDBS&#39;]``</span>
+<span class="sd">    scen : DataFrame</span>
+<span class="sd">        Scenario window containing baseline (TDBS) and stressed (MST) YoY for US</span>
+<span class="sd">        and CA, and baseline for targets.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame</span>
+<span class="sd">        Stressed YoY for targets: ``CPIUK_MST, CPIAU_MST, CPIEA_MST, CPIJP_MST``</span>
+<span class="sd">        with a quarterly PeriodIndex.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required_hist_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;CPIUS_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPICA_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIUK_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIAU_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIEA_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIJP_TDBS&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">required_hist_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">hist</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;history is missing columns: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">demean</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="n">required_hist_cols</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[[</span><span class="s2">&quot;CPIUS_TDBS&quot;</span><span class="p">,</span> <span class="s2">&quot;CPICA_TDBS&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">beta</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;UK&quot;</span><span class="p">:</span> <span class="n">ols_betas</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="s2">&quot;CPIUK_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">donors</span><span class="p">),</span>
+        <span class="s2">&quot;AU&quot;</span><span class="p">:</span> <span class="n">ols_betas</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="s2">&quot;CPIAU_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">donors</span><span class="p">),</span>
+        <span class="s2">&quot;EA&quot;</span><span class="p">:</span> <span class="n">ols_betas</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="s2">&quot;CPIEA_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">donors</span><span class="p">),</span>
+        <span class="s2">&quot;JP&quot;</span><span class="p">:</span> <span class="n">ols_betas</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="s2">&quot;CPIJP_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">donors</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">required_scen_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;CPICA_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIUS_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIUK_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIAU_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIEA_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIJP_TDBS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPIUS_MST&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CPICA_MST&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">required_scen_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">scen</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scenario is missing columns: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">scen</span> <span class="o">=</span> <span class="n">scen</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;US_SHOCK&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIUS_MST&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIUS_TDBS&quot;</span><span class="p">]</span>
+    <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CA_SHOCK&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPICA_MST&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPICA_TDBS&quot;</span><span class="p">]</span>
+
+    <span class="n">shocks</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[[</span><span class="s2">&quot;US_SHOCK&quot;</span><span class="p">,</span> <span class="s2">&quot;CA_SHOCK&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIUK_MST&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIUK_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">shocks</span> <span class="o">@</span> <span class="n">beta</span><span class="p">[</span><span class="s2">&quot;UK&quot;</span><span class="p">]</span>
+    <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIAU_MST&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIAU_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">shocks</span> <span class="o">@</span> <span class="n">beta</span><span class="p">[</span><span class="s2">&quot;AU&quot;</span><span class="p">]</span>
+    <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIEA_MST&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIEA_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">shocks</span> <span class="o">@</span> <span class="n">beta</span><span class="p">[</span><span class="s2">&quot;EA&quot;</span><span class="p">]</span>
+    <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIJP_MST&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="s2">&quot;CPIJP_TDBS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">shocks</span> <span class="o">@</span> <span class="n">beta</span><span class="p">[</span><span class="s2">&quot;JP&quot;</span><span class="p">]</span>
+
+    <span class="n">out_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CPIUS_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPICA_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIUK_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIAU_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIEA_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIJP_MST&quot;</span><span class="p">]</span>
+    <span class="n">smc_mst_yoy</span> <span class="o">=</span> <span class="n">scen</span><span class="p">[</span><span class="n">out_cols</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">smc_mst_yoy</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">smc_mst_yoy</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Estimated betas:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; UK on US, CA: US=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;UK&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, CA=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;UK&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; AU on US, CA: US=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;AU&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, CA=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;AU&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; EA on US, CA: US=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;EA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, CA=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;EA&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; JP on US, CA: US=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;JP&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, CA=</span><span class="si">{</span><span class="n">beta</span><span class="p">[</span><span class="s1">&#39;JP&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">smc_mst_yoy</span>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># End-to-end MST levels builder (example wiring)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">mst_levels</span><span class="p">(</span>
+    <span class="n">pull_page</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">mst_forecast_yoy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">mst_vars</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">jump_off</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">13</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct MST **levels** series by combining actuals + stressed YoY.</span>
+
+<span class="sd">    Steps (high-level)</span>
+<span class="sd">    ------------------</span>
+<span class="sd">    1. Pull baseline (TDBS) levels from EViews page ``pull_page``.</span>
+<span class="sd">    2. Compute YoY for actuals and baseline forecast; splice in MST YoY from</span>
+<span class="sd">       ``mst_forecast_yoy`` for the selected variables ``mst_vars``.</span>
+<span class="sd">    3. Estimate donor betas on history and propagate US/CA shocks to targets.</span>
+<span class="sd">    4. Extend to 2030Q3 + ``n`` quarters by repeating last row.</span>
+<span class="sd">    5. Convert YoY to levels using :func:`yoy_to_levels` from ``jump_off``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pull_page : str</span>
+<span class="sd">        EViews page name to pull.</span>
+<span class="sd">    mst_forecast_yoy : DataFrame</span>
+<span class="sd">        Stressed YoY in percent with columns like ``&lt;VAR&gt;_MST``.</span>
+<span class="sd">    mst_vars : sequence of str</span>
+<span class="sd">        Variable base names (e.g., ``[&quot;CPIAU&quot;,&quot;CPICA&quot;,...]``).</span>
+<span class="sd">    jump_off : str</span>
+<span class="sd">        Quarter where the MST forecast starts (e.g., ``&quot;2025Q4&quot;``).</span>
+<span class="sd">    n : int, default 13</span>
+<span class="sd">        Number of quarters to extend by repeating the last row.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">jump_off_p</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="n">jump_off</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Build lists of baseline/stress names</span>
+    <span class="n">given_tdbs</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">_TDBS&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mst_vars</span><span class="p">]</span>
+    <span class="n">given_mst</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">_MST&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mst_vars</span><span class="p">]</span>
+
+    <span class="c1"># 1) Pull baseline levels</span>
+    <span class="n">tdbs</span> <span class="o">=</span> <span class="n">get_page</span><span class="p">(</span><span class="n">pull_page</span><span class="p">)</span>
+
+    <span class="c1"># 2) Compute YoY</span>
+    <span class="n">actuals</span> <span class="o">=</span> <span class="n">tdbs</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span> <span class="n">jump_off_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">tdbs_yoy</span> <span class="o">=</span> <span class="n">yoy</span><span class="p">(</span><span class="n">tdbs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Align actuals YoY to stress names and splice MST forecast</span>
+    <span class="n">actuals_yoy</span> <span class="o">=</span> <span class="n">yoy</span><span class="p">(</span><span class="n">actuals</span><span class="p">[</span><span class="n">given_tdbs</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">actuals_yoy</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">given_mst</span>
+    <span class="n">mst_actuals_yoy</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">actuals_yoy</span><span class="p">,</span> <span class="n">mst_forecast_yoy</span><span class="p">[</span><span class="n">given_mst</span><span class="p">],</span> <span class="n">bind</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+    <span class="n">scenario_yoy</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">tdbs_yoy</span><span class="p">,</span> <span class="n">mst_actuals_yoy</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">hist</span> <span class="o">=</span> <span class="n">tdbs_yoy</span>
+    <span class="n">scen</span> <span class="o">=</span> <span class="n">scenario_yoy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">jump_off_p</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># 3) Donor propagation</span>
+    <span class="n">smc_mst_yoy</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="n">scen</span><span class="p">)</span>
+
+    <span class="c1"># 4) Build levels container up to 2030Q3 and extend</span>
+    <span class="c1"># Reorder/rename to match output columns from main</span>
+    <span class="n">tdbs_levels</span> <span class="o">=</span> <span class="n">tdbs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">tdbs_levels</span> <span class="o">=</span> <span class="n">tdbs_levels</span><span class="p">[[</span><span class="s2">&quot;CPIAU&quot;</span><span class="p">,</span> <span class="s2">&quot;CPICA&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIEA&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIJP&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIUK&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIUS&quot;</span><span class="p">]]</span>
+    <span class="n">tdbs_levels</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CPIAU_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPICA_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIEA_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIJP_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIUK_MST&quot;</span><span class="p">,</span> <span class="s2">&quot;CPIUS_MST&quot;</span><span class="p">]</span>
+
+    <span class="n">mixed_df</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span>
+        <span class="n">df1</span><span class="o">=</span><span class="n">tdbs_levels</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span> <span class="s2">&quot;2025Q3&quot;</span><span class="p">],</span>
+        <span class="n">df2</span><span class="o">=</span><span class="n">smc_mst_yoy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2025Q4&quot;</span><span class="p">:],</span>
+        <span class="n">bind</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mixed_df_ext</span> <span class="o">=</span> <span class="n">repeat_last_row</span><span class="p">(</span><span class="n">mixed_df</span><span class="p">,</span> <span class="s2">&quot;2030Q3&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># 5) Convert YoY→levels post jump-off</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">yoy_to_levels</span><span class="p">(</span>
+        <span class="n">yoy_rates_pct</span><span class="o">=</span><span class="n">mixed_df_ext</span><span class="p">,</span>
+        <span class="n">first_forecast_date</span><span class="o">=</span><span class="s2">&quot;2025Q4&quot;</span><span class="p">,</span>
+        <span class="n">levels_start</span><span class="o">=</span><span class="n">tdbs_levels</span><span class="p">,</span>
+        <span class="n">annual</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">levels</span>
 </code></pre></div>
+<hr />
+<h3 id="changelog-this-refactor">Changelog (this refactor)</h3>
+<ul>
+<li>Fixed <code>select_page</code> (used undefined <code>page</code> previously).</li>
+<li>Safer <code>rmv_percent</code> (handles commas, coercion).</li>
+<li>Robust <code>join</code> with explicit validation; supports Series or DataFrame.</li>
+<li>Corrected <code>yoy_to_levels</code> mapping for YoY→levels (no stray additional 1/4 power).</li>
+<li>Matrix ops for donor shock propagation in <code>main</code>.</li>
+<li>Consistent <code>PeriodIndex(freq="Q")</code> handling via <code>to_q</code>/<code>conv_date</code> and EViews push.</li>
+</ul>
 
 
 
