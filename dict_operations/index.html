@@ -9,6 +9,8 @@
       
       
       
+        <link rel="prev" href="../python_helper_functions/">
+      
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -16,7 +18,7 @@
     
     
       
-        <title>Ev strings - TD Stress Team Training</title>
+        <title>Dictionaries in Python - TD Stress Team Training</title>
       
     
     
@@ -57,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#dict-operations-in-python" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -89,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ev strings
+              Dictionaries in Python
             
           </span>
         </div>
@@ -660,18 +667,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -687,7 +696,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Python
@@ -836,10 +845,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dict_operations/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -850,6 +868,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -879,6 +898,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -894,74 +915,75 @@
 
 
 
-  <h1>Ev strings</h1>
-
-<p>Chapter 5: Strings
-Use double quotes for a "string" in Eviews. The null string is represented as "".  The null string can also be represented as a missing value.</p>
-<p>String Operators:</p>
-<p>(1) concatenation—plus (“+”)
-(2) relational—equal to (“=”),
-not equal to (“&lt;&gt;”),
-greater than (“&gt;”),
-greater than or equal to (“&gt;=”),
-less than (“&lt;=”).</p>
-<p>When concatenating strings the empty string is ignored (interpreted as a blank string) which means adding "" to a string will not change the string.</p>
-<p>String Ordering: alphabetical ordering places hyphens and aposrophes before alphanumeric symbols. In terms of upper and lower case letters "a" precedes "A".</p>
-<p>With strings greater than or less than indicates ordering, note that if the relation is true then the comparison returns a 1 and 0 otherwise:</p>
-<p>To obtain sections or portions of a string use @left @right and @mid:</p>
-<p>@upper and @lower turn the string into all upper or lowercase.
-@ltrim @rtrim and @trim ignore leading spaces (these functions do not trim the string!)
-The following all return 1:</p>
-<p>Relational operators treat emptry strings as missing values so comparisons with non-empty strings produce NAs.</p>
-<p>String Lists: a string with three words would be thought of as having 3 elements. Double quotes are used to denote multi word elements in a string list, which is to say an element in double quotes can have multiple words.</p>
-<p>" ""this thing"" ""has exactly"" ""three elements"" "  a " begins and ends the string but each multi word element is enclosed in "" also.</p>
-<p>String Functions
-@length(str)  the number of CHARACTERS in a string
-@wcount(str)  integer value of the number of string elements in a string list.
-@wfind("I did it", "did")  returns the value 2, because did is the second element in the string list</p>
-<p>@wfindnc(str)  same as above but not case sensitive</p>
-<p>@isempty(str)  1 if empty, 0 otherwise
-@eqna(str1, str2)  1 if strings are equal, 0 otherwise: treats null strings as ordinary blank strings and NOT as missing values!</p>
-<p>@neqna(str1, str2)  returns 1 if strings are NOT equal and 0 otherwise.
-@val(str[, fmt]) converts the sting into a numeric value if possible and returns NA otherwise.</p>
-<p>@dateval(str[,fmt])  converts a string to a date  number (also see @dtoo)</p>
-<p>String manipulation:</p>
-<p>@left(str, int)  returns a string containing the int CHARACTERS at the left of the string</p>
-<p>@wleft(str_list, int)  returns a string containing the int ELEMENTS of a string LIST to the left of the string list.
-@right and @wright are similar.
-@mid and @wmid work the same way but require can take int1 and int2 arguments (if int2 is not specified it returns the rest of the characters in the string.
-@mid(str, int1, int2) and @wmid(str_list, int1, int2)</p>
-<p>@word(str_list, int)  returns the int element of the string list (@wordq is the same but preserves quotes)</p>
-<p>@wkeep(str_list, "pattern_list") returns the list of elements in str_list that match the pattern in pattern list.</p>
-<p>EG:</p>
-<p>@wdrop(str_list, "pattern_list") returns a string list without the elements that match the pattern list</p>
-<p>@replace and @wreplace replace work on string list elements and patterns respectively</p>
-<p>@replace(str1, str2, str3)  within str1, find str2 and exchange it for str3 .
-@wreplace(str_list, “src_pattern”, “replace_pattern”)</p>
-<p>EG: @wreplace("ABC AB", "<em>B</em>", "<em>X</em>") replaces all instances of “B” with “X”, returning the string “AXC AX”</p>
-<p>@wintersect(str_list1, str_list2)  acts like intersection of sets, same for @wunion</p>
-<p>@wunique(str_list)  removes duplicates and returns the list</p>
-<p>@wnotin(str_list1, str_list2)  returns all elements of str_list1 that are NOT in str_list2</p>
-<p>@wsort(str_list[, "D"]) sorts elements of a list, use D for sorting in descending order</p>
-<p>Using strings in Eviews</p>
-<p>If making a temporarty string use the % character
-EG</p>
-<blockquote>
-<blockquote>
-<p>%value = "a string of values"  this will exist only during the time Eviews is running!</p>
-</blockquote>
-</blockquote>
-<p>If you want the string to exist in general use</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>string string_name = "a string of values"</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Viewing strings: strings can be views as a string (a list of characters) or a word list (a list of elements).</p>
-<p>String vectors say PDF page 102.</p>
-<p>Dates see PDF page 103</p>
+<h1 id="dict-operations-in-python">Dict Operations in Python</h1>
+<p>If <code>D</code> is a dict:</p>
+<ul>
+<li>
+<p><strong>Retrieve values safely</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">D</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</code></pre></div>
+  Returns the value associated with the key without raising a <code>KeyError</code>.</p>
+</li>
+<li>
+<p><strong>View keys, values, and items</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">D</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">D</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">D</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Add to a dict using <code>.update</code></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">D</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Insert only if not present with <code>.setdefault</code></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">D</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;UR&quot;</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">)</span>
+</code></pre></div>
+  Adds the key-value pair only if the key is not already in the dict.</p>
+</li>
+<li>
+<p><strong>Remove and return a value with <code>.pop</code></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">value</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Remove and return the <em>last</em> key-value pair (LIFO) with <code>.popitem</code></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Empty the dict with <code>.clear</code></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">D</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Shallow copy with <code>.copy</code></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">D2</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Create a new dict from keys</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GDP&quot;</span><span class="p">,</span> <span class="s2">&quot;CPI&quot;</span><span class="p">]</span>
+<span class="n">D</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+  Creates a new dict with the given keys and all values set to <code>0</code>.</p>
+</li>
+<li>
+<p><strong>Merge using <code>|</code> (Python 3.9+)</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">d1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;GDP&quot;</span><span class="p">:</span> <span class="mf">2.4</span><span class="p">}</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CPI&quot;</span><span class="p">:</span> <span class="mf">1.8</span><span class="p">}</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">d1</span> <span class="o">|</span> <span class="n">d2</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Update in place using <code>|=</code> (Python 3.9+)</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">d1</span> <span class="o">|=</span> <span class="p">{</span><span class="s2">&quot;UR&quot;</span><span class="p">:</span> <span class="mf">6.1</span><span class="p">}</span>
+</code></pre></div>
+  Adds the new key-value pair to <code>d1</code>.</p>
+</li>
+</ul>
 
 
 
